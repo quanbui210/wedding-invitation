@@ -45,6 +45,45 @@
       hy(X(0), Y(32), (11 * s).toFixed(1));
   }
 
+  function house(treeSide) {
+    var d = '';
+    function L(x1, y1, x2, y2) { return '<path d="M' + x1 + ' ' + y1 + ' L' + x2 + ' ' + y2 + '"/>'; }
+    d += L(6, 108, 154, 108);
+    // platform and step
+    d += '<path d="M30 108 L30 102 L130 102 L130 108"/><path d="M66 108 L66 105 L94 105 L94 108"/>';
+    // walls and the columns between three bays
+    d += L(38, 102, 38, 64) + L(122, 102, 122, 64) + L(58, 102, 58, 64) + L(102, 102, 102, 64);
+    // centre double door with 囍, side windows with bars
+    d += '<path d="M70 102 L70 76 L90 76 L90 102"/>' + L(80, 77, 80, 102) + hy(80, 92, 8);
+    [44, 106].forEach(function (x) {
+      d += '<path d="M' + x + ' 90 L' + x + ' 76 L' + (x + 10) + ' 76 L' + (x + 10) + ' 90 Z"/>' + L(x + 3.3, 76, x + 3.3, 90) + L(x + 6.7, 76, x + 6.7, 90);
+    });
+    // roof: curved eaves with upturned tips, sloped sides, ridge with curled ends
+    d += '<path d="M24 64 C44 67 116 67 136 64"/>';
+    d += '<path d="M24 64 C19 62 17 58 19 55"/><path d="M136 64 C141 62 143 58 141 55"/>';
+    d += L(26, 62, 48, 40) + L(134, 62, 112, 40) + L(46, 40, 114, 40);
+    d += '<path d="M46 40 C42 38 40 34 42 31"/><path d="M114 40 C118 38 120 34 118 31"/>';
+    for (var x = 56; x <= 104; x += 8) d += L(x, 42, x + (x - 80) * .12, 63);
+    // ridge ornament: a moon between two small curls
+    d += '<circle cx="80" cy="35" r="3"/><path d="M72 39 C70 35 73 33 75 35 M88 39 C90 35 87 33 85 35"/>';
+    // lanterns under the eaves
+    [31, 129].forEach(function (x) {
+      d += L(x, 65, x, 70) + '<path d="M' + (x - 3) + ' 71 C' + (x - 6) + ' 74 ' + (x - 6) + ' 79 ' + (x - 3) + ' 82 L' + (x + 3) + ' 82 C' + (x + 6) + ' 79 ' + (x + 6) + ' 74 ' + (x + 3) + ' 71 Z"/>' + L(x, 82, x, 86);
+    });
+    // areca palm on the outer side
+    var t = treeSide === 'left' ? 14 : 146, k = treeSide === 'left' ? 1 : -1;
+    d += '<path d="M' + t + ' 108 C' + (t - 1) + ' 80 ' + (t + 1) + ' 50 ' + t + ' 22"/>';
+    for (var y = 34; y <= 98; y += 9) d += L(t - 1.6, y, t + 1.6, y - .6);
+    d += '<path d="M' + t + ' 22 C' + (t + 8 * k) + ' 15 ' + (t + 15 * k) + ' 17 ' + (t + 20 * k) + ' 23"/>';
+    d += '<path d="M' + t + ' 22 C' + (t + 6 * k) + ' 12 ' + (t + 12 * k) + ' 9 ' + (t + 18 * k) + ' 11"/>';
+    d += '<path d="M' + t + ' 22 C' + (t - 4 * k) + ' 13 ' + (t - 9 * k) + ' 11 ' + (t - 12 * k) + ' 14"/>';
+    d += '<path d="M' + t + ' 22 C' + (t - 6 * k) + ' 17 ' + (t - 11 * k) + ' 20 ' + (t - 12 * k) + ' 27"/>';
+    d += '<path d="M' + t + ' 22 C' + (t + 1) + ' 14 ' + (t - 1) + ' 9 ' + t + ' 5"/>';
+    d += '<circle cx="' + (t + 2.5 * k) + '" cy="27" r="1.6"/><circle cx="' + (t + 4.5 * k) + '" cy="29.5" r="1.6"/><circle cx="' + (t + 1.5 * k) + '" cy="30.5" r="1.6"/>';
+    d += sparkle(treeSide === 'left' ? 140 : 20, 20, 3.5);
+    return d;
+  }
+
   var ART = {
     // Đón khách: two Hội An silk lanterns on a ribbon
     lanterns: function () {
@@ -175,6 +214,21 @@
       return d;
     },
 
+    // Nhà trai / Nhà gái: a three-bay Vietnamese house with upturned eaves,
+    // lanterns under the roof and an areca palm (cây cau) on the outer side.
+    houseGroom: function () { return house('left'); },
+    houseBride: function () { return house('right'); },
+
+    // Tơ hồng: two threads from the families, tied in a heart between the couple.
+    thread: function () {
+      return '<path d="M100 0 C100 34 150 30 189 50"/>' +
+        '<path d="M300 0 C300 34 250 30 211 50"/>' +
+        heart(200, 40, 1.8) +
+        '<path d="M200 62 C178 70 104 66 100 110"/>' +
+        '<path d="M200 62 C222 70 296 66 300 110"/>' +
+        sparkle(160, 20, 4) + sparkle(242, 24, 3.5);
+    },
+
     // Mừng cưới: envelope with a wax seal
     envelope: function () {
       return '<path d="M30 46 L130 46 L130 104 L30 104 Z"/>' +
@@ -184,7 +238,7 @@
     }
   };
 
-  var VIEWBOX = { venue: '0 0 320 150' }; // wide drawings; the rest are 160 × 120
+  var VIEWBOX = { venue: '0 0 320 150', thread: '0 0 400 110' }; // wide drawings; the rest are 160 × 120
 
   window.Sketches = {
     has: function (name) { return !!ART[name]; },

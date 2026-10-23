@@ -112,19 +112,23 @@
 
   /* ---------- Family ---------- */
   function renderFamily() {
-    var f = C.family;
-    function col(side, key, dir) {
-      return '<div class="family__col ' + rv(dir) + '"><p class="kicker">' + esc(t(key)) + '</p>' +
-        '<p>' + esc(side.father) + '</p><p>' + esc(side.mother) + '</p>' +
+    var f = C.family, sk = window.Sketches;
+    function col(side, key, art, dir) {
+      return '<div class="family__col ' + rv(dir) + '">' +
+        (sk ? '<div class="family__art">' + sk.render(art) + '</div>' : '') +
+        '<p class="kicker">' + esc(t(key)) + '</p>' +
+        '<p class="family__parent">' + esc(side.father) + '</p><p class="family__parent">' + esc(side.mother) + '</p>' +
         (side.address ? '<p class="addr">' + esc(side.address) + '</p>' : '') + '</div>';
     }
-    $('#family').innerHTML = col(f.groom, 'groomSide', 'left') + col(f.bride, 'brideSide', 'right');
+    $('#family').innerHTML = col(f.groom, 'groomSide', 'houseGroom', 'left') + col(f.bride, 'brideSide', 'houseBride', 'right');
+    $('#family-thread').innerHTML = sk ? sk.render('thread') : '';
     var g = C.couple.groom, b = C.couple.bride;
-    function role(p) { return p.order ? '<span class="role">' + esc(pick(p.order)) + '</span>' : ''; }
-    $('#couple').innerHTML =
-      '<div>' + role(g) + '<span class="person">' + esc(g.fullName) + '</span></div>' +
-      '<span class="amp">&amp;</span>' +
-      '<div>' + role(b) + '<span class="person">' + esc(b.fullName) + '</span></div>';
+    function person(p, label, dir) {
+      return '<div class="family__person ' + rv(dir) + '"><span class="kicker">' + esc(p.order ? pick(p.order) : t(label)) + '</span>' +
+        '<span class="person">' + esc(p.fullName) + '</span></div>';
+    }
+    $('#couple').innerHTML = person(g, 'groomLabel', 'left') + person(b, 'brideLabel', 'right');
+    prepSketch($('#family')); prepSketch($('#family-thread'));
   }
 
   /* ---------- Events + calendar ---------- */
