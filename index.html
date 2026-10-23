@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bảo Phi &amp; Thúy Linh · 29.12.2026</title>
+  <meta name="description" content="Trân trọng kính mời Quý khách đến dự tiệc cưới của Bảo Phi &amp; Thúy Linh · 11:30, Thứ Ba 29.12.2026 · Trung tâm Tiệc cưới The One, Hà Nội">
+  <meta name="theme-color" content="#FAF7F2">
+
+  <!-- Link preview (Zalo, Messenger, Facebook). TODO: replace YOUR-DOMAIN with the deployed URL.
+       og:image must be an absolute https URL for Zalo and Facebook to show it. -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Bảo Phi &amp; Thúy Linh · 29.12.2026">
+  <meta property="og:description" content="Trân trọng kính mời Quý khách đến dự tiệc cưới của chúng tôi · 11:30, Thứ Ba 29.12.2026 · The One, Hà Nội.">
+  <meta property="og:url" content="https://YOUR-DOMAIN/">
+  <meta property="og:image" content="https://YOUR-DOMAIN/assets/images/og-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="vi_VN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Great+Vibes&display=swap">
+  <!-- Song Hỷ glyph only: the text= parameter keeps this font download to a few KB. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300&text=%E5%9B%8D&display=swap">
+  <link rel="stylesheet" href="assets/css/style.css?v=1792782691">
+</head>
+<body class="is-locked">
+
+  <!-- Line-art symbols reused across the page -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- Slight wobble so the sketches look drawn with a pen -->
+    <filter id="hand" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="7"/>
+      <feDisplacementMap in="SourceGraphic" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <symbol id="mai" viewBox="0 0 40 40">
+      <g fill="none" stroke="currentColor" stroke-width=".8" stroke-linecap="round">
+        <path d="M20 19c-3-4-3-9 0-12 3 3 3 8 0 12z"/>
+        <path d="M20 19c-3-4-3-9 0-12 3 3 3 8 0 12z" transform="rotate(72 20 20)"/>
+        <path d="M20 19c-3-4-3-9 0-12 3 3 3 8 0 12z" transform="rotate(144 20 20)"/>
+        <path d="M20 19c-3-4-3-9 0-12 3 3 3 8 0 12z" transform="rotate(216 20 20)"/>
+        <path d="M20 19c-3-4-3-9 0-12 3 3 3 8 0 12z" transform="rotate(288 20 20)"/>
+        <circle cx="20" cy="20" r="1.6"/>
+      </g>
+    </symbol>
+    <symbol id="sprig" viewBox="0 0 120 40">
+      <g fill="none" stroke="currentColor" stroke-width=".7" stroke-linecap="round">
+        <path d="M2 30c30-2 60-10 116-26"/>
+        <path d="M34 26c2-6 6-9 11-10"/><path d="M62 19c1-6 5-10 10-11"/><path d="M88 12c2-4 5-6 9-7"/>
+        <path d="M44 25c4 3 9 4 14 2"/><path d="M74 17c4 3 8 3 12 1"/>
+      </g>
+      <use href="#mai" x="40" y="6" width="14" height="14"/>
+      <use href="#mai" x="70" y="0" width="11" height="11"/>
+      <use href="#mai" x="98" y="-2" width="9" height="9"/>
+    </symbol>
+  </svg>
+
+  <!-- ============ COVER ============ -->
+  <!-- Two fabric drapes. main.js animates them: closed → tied back → off screen. -->
+  <div class="cover" id="cover" role="dialog" aria-modal="true" aria-labelledby="cover-greeting">
+    <div class="drape drape--left" aria-hidden="true"><div class="drape__rim"></div><div class="drape__cloth"></div></div>
+    <div class="drape drape--right" aria-hidden="true"><div class="drape__rim"></div><div class="drape__cloth"></div></div>
+    <div class="cover__rod" aria-hidden="true"></div>
+    <canvas class="cover__petals" id="petals" aria-hidden="true"></canvas>
+    <div class="cover__content">
+      <p class="kicker" data-i18n="coverKicker">Thiệp mời</p>
+      <div class="seal" aria-hidden="true"><span class="hy">囍</span></div>
+      <h1 class="cover__greeting" id="cover-greeting" data-i18n="coverGreeting">Trân trọng kính mời Quý khách</h1>
+      <button class="btn btn--solid cover__open" id="open-invite" type="button" data-i18n="coverOpen">Mở thiệp</button>
+    </div>
+  </div>
+
+  <!-- ============ FLOATING CONTROLS ============ -->
+  <div class="controls" id="controls" hidden>
+    <div class="lang" role="group" aria-label="Language / Ngôn ngữ">
+      <button type="button" data-lang="vi" aria-pressed="true">VI</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+  <button class="music" id="music" type="button" aria-pressed="false" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path class="music__note" d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>
+    <span class="sr-only" data-music-label></span>
+  </button>
+
+  <main class="card" id="main">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero section" aria-labelledby="hero-names">
+      <svg class="hero__sprig" aria-hidden="true"><use href="#sprig"/></svg>
+      <p class="kicker reveal" data-i18n="heroKicker">Trân trọng kính mời</p>
+      <div class="hero__photo reveal reveal--left" id="hero-photo"></div>
+      <h2 class="hero__names script reveal" id="hero-names" data-names></h2>
+      <p class="hero__lead reveal" data-i18n="heroLead">đến dự lễ thành hôn của chúng tôi</p>
+      <div class="date reveal" id="hero-date"></div>
+      <p class="hero__lunar reveal" id="hero-lunar"></p>
+      <blockquote class="hero__quote reveal" id="hero-quote"></blockquote>
+    </section>
+
+    <!-- ============ FAMILY ============ -->
+    <section class="family section" aria-labelledby="family-title">
+      <div class="divider reveal"><span class="hy">囍</span></div>
+      <h2 class="title reveal" id="family-title" data-i18n="familyTitle">Gia đình hai bên</h2>
+      <div class="family__grid" id="family"></div>
+      <p class="family__intro reveal" data-i18n="familyIntro">Trân trọng báo tin lễ thành hôn của con chúng tôi</p>
+      <div class="family__couple reveal" id="couple"></div>
+    </section>
+
+    <!-- ============ EVENTS ============ -->
+    <section class="events section" aria-labelledby="events-title">
+      <h2 class="title reveal" id="events-title" data-i18n="eventsTitle">Lễ cưới</h2>
+      <div class="events__list" id="events"></div>
+    </section>
+
+    <!-- ============ PROGRAM (sketches) ============ -->
+    <section class="program section" id="program-section" aria-labelledby="program-title">
+      <h2 class="title reveal" id="program-title" data-i18n="programTitle">Chương trình</h2>
+      <p class="program__date reveal" id="program-date"></p>
+      <ol class="program__list" id="program"></ol>
+    </section>
+
+    <!-- ============ COUNTDOWN ============ -->
+    <section class="countdown section" aria-labelledby="countdown-title">
+      <p class="kicker reveal" id="countdown-title" data-i18n="countdownTitle">Còn lại</p>
+      <div class="countdown__grid reveal" id="countdown" aria-live="off"></div>
+    </section>
+
+    <!-- ============ ALBUM (self-contained: assets/js/album.js + .album styles) ============ -->
+    <section class="section" aria-labelledby="album-title">
+      <h2 class="title reveal" id="album-title" data-i18n="albumTitle">Khoảnh khắc</h2>
+      <div class="album reveal" id="album"></div>
+    </section>
+
+    <!-- ============ STORY ============ -->
+    <section class="story section" id="story-section" aria-labelledby="story-title">
+      <h2 class="title reveal" id="story-title" data-i18n="storyTitle">Chuyện chúng mình</h2>
+      <ol class="story__list" id="story"></ol>
+    </section>
+
+    <!-- ============ GIFT ============ -->
+    <section class="gift section" id="gift-section" aria-labelledby="gift-title">
+      <div class="gift__art reveal" id="gift-art"></div>
+      <h2 class="title reveal" id="gift-title" data-i18n="giftTitle">Mừng cưới</h2>
+      <p class="muted reveal" data-i18n="giftIntro"></p>
+      <button class="btn btn--ghost reveal" id="gift-toggle" type="button" aria-expanded="false" aria-controls="gift-panel" data-i18n="giftToggleOpen">Xem thông tin</button>
+      <div class="gift__panel" id="gift-panel" hidden></div>
+    </section>
+
+    <!-- ============ RSVP ============ -->
+    <section class="rsvp section" id="rsvp" aria-labelledby="rsvp-title">
+      <div class="divider reveal"><span class="hy">囍</span></div>
+      <h2 class="title reveal" id="rsvp-title" data-i18n="rsvpTitle">Xác nhận tham dự</h2>
+      <p class="muted reveal" id="rsvp-deadline"></p>
+
+      <form class="form reveal" id="rsvp-form" novalidate>
+        <!-- Honeypot: display:none, so people and browser autofill never fill it; simple bots do -->
+        <div class="hp" aria-hidden="true">
+          <label for="f-hp">Leave empty</label>
+          <input id="f-hp" name="hp_check" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="f-name"><span data-i18n="fName">Họ và tên</span> <span class="req" aria-hidden="true">*</span></label>
+          <input id="f-name" name="name" type="text" autocomplete="name" maxlength="80" required aria-describedby="f-name-hint f-name-err">
+          <small id="f-name-hint" class="hint" data-i18n="fNameHint"></small>
+          <small id="f-name-err" class="err" role="alert"></small>
+        </div>
+
+        <fieldset class="field">
+          <legend><span data-i18n="fAttending">Quý khách sẽ đến chứ?</span> <span class="req" aria-hidden="true">*</span></legend>
+          <div class="choices choices--stack">
+            <label class="choice"><input type="radio" name="attending" value="yes" required><span data-i18n="yes"></span></label>
+            <label class="choice"><input type="radio" name="attending" value="no"><span data-i18n="no"></span></label>
+          </div>
+          <small id="f-attending-err" class="err" role="alert"></small>
+        </fieldset>
+
+        <div class="attend-only" id="attend-only" hidden>
+          <fieldset class="field">
+            <legend data-i18n="fGuests">Số người tham dự</legend>
+            <div class="choices choices--row">
+              <label class="choice choice--pill"><input type="radio" name="guests" value="1" checked><span>1</span></label>
+              <label class="choice choice--pill"><input type="radio" name="guests" value="2"><span>2</span></label>
+              <label class="choice choice--pill"><input type="radio" name="guests" value="3"><span>3</span></label>
+              <label class="choice choice--pill"><input type="radio" name="guests" value="other"><span data-i18n="other"></span></label>
+            </div>
+            <div class="field field--inline" id="guests-other-wrap" hidden>
+              <label for="f-guests-other" data-i18n="fGuestsOther">Số người</label>
+              <input id="f-guests-other" name="guestsOther" type="number" inputmode="numeric" min="1" max="20" aria-describedby="f-guests-err">
+            </div>
+            <small id="f-guests-err" class="err" role="alert"></small>
+          </fieldset>
+
+          <fieldset class="field" id="events-field">
+            <legend data-i18n="fEvents">Quý khách sẽ dự</legend>
+            <div class="choices choices--stack" id="f-events"></div>
+            <small id="f-events-err" class="err" role="alert"></small>
+          </fieldset>
+        </div>
+
+        <fieldset class="field">
+          <legend data-i18n="fSide">Quý khách là khách của</legend>
+          <div class="choices choices--row">
+            <label class="choice choice--pill"><input type="radio" name="side" value="groom"><span data-i18n="sideGroom"></span></label>
+            <label class="choice choice--pill"><input type="radio" name="side" value="bride"><span data-i18n="sideBride"></span></label>
+            <label class="choice choice--pill"><input type="radio" name="side" value="both"><span data-i18n="sideBoth"></span></label>
+          </div>
+        </fieldset>
+
+        <div class="field attend-only-diet" id="diet-wrap" hidden>
+          <label for="f-diet" data-i18n="fDiet">Lưu ý ăn uống</label>
+          <input id="f-diet" name="dietary" type="text" maxlength="200" data-i18n-placeholder="fDietHint">
+        </div>
+
+        <div class="field">
+          <label for="f-message" data-i18n="fMessage">Lời nhắn</label>
+          <textarea id="f-message" name="message" rows="3" maxlength="1000"></textarea>
+        </div>
+
+        <p class="form__error" id="form-error" role="alert"></p>
+        <button class="btn btn--solid btn--block" id="rsvp-submit" type="submit" data-i18n="submit">Gửi xác nhận</button>
+        <p class="form__demo" id="form-demo" hidden data-i18n="demoNote"></p>
+      </form>
+
+      <div class="thanks" id="rsvp-thanks" hidden tabindex="-1">
+        <div class="seal seal--small" aria-hidden="true"><span class="hy">囍</span></div>
+        <p class="thanks__text" id="thanks-text"></p>
+        <button class="btn btn--ghost" id="rsvp-edit" type="button" data-i18n="edit">Sửa câu trả lời</button>
+      </div>
+    </section>
+
+    <!-- ============ CLOSING ============ -->
+    <footer class="closing section">
+      <div class="monogram reveal" id="monogram" aria-hidden="true"></div>
+      <h2 class="title reveal" data-i18n="closingTitle">Trân trọng cảm ơn</h2>
+      <p class="muted reveal" data-i18n="closingText"></p>
+      <p class="closing__names script reveal" data-names></p>
+      <p class="closing__tag reveal" id="hashtag"></p>
+      <span class="hy closing__hy reveal" aria-hidden="true">囍</span>
+    </footer>
+  </main>
+
+  <audio id="bgm" preload="none" loop></audio>
+
+  <noscript><p class="noscript">Vui lòng bật JavaScript để xem thiệp. / Please enable JavaScript to view this invitation.</p></noscript>
+
+  <script src="config.js?v=1792782691"></script>
+  <script src="assets/js/album.js?v=1792782691"></script>
+  <script src="assets/js/sketches.js?v=1792782691"></script>
+  <script src="assets/js/main.js?v=1792782691"></script>
+</body>
+</html>

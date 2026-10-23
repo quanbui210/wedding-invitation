@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- Source for assets/images/og-preview.jpg (1200×630). Edit, then re-render:
+     "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --hide-scrollbars \
+       --window-size=1200,630 --screenshot=og.png tools/og-preview.html
+     and convert og.png to JPG (e.g. with squoosh.app). Or replace the JPG with a real photo. -->
+<html lang="vi"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Great+Vibes&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300&text=%E5%9B%8D&display=block">
+<style>
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body { background: #FAF7F2; display: grid; place-items: center; font-family: 'Cormorant Garamond', serif; color: #2F2522; font-feature-settings: "lnum" 1; }
+  .frame { position: absolute; inset: 26px; border: 1px solid rgba(179,152,105,.6); }
+  .frame::after { content: ''; position: absolute; inset: 7px; border: 1px solid rgba(179,152,105,.3); }
+  .wrap { text-align: center; position: relative; }
+  .seal { width: 84px; height: 84px; margin: 0 auto 26px; border-radius: 50%; background: #6B1D2A; color: #E3CFA4; display: grid; place-items: center;
+          box-shadow: inset 0 0 0 5px #6B1D2A, inset 0 0 0 6px rgba(227,207,164,.7); font: 300 38px/1 'Noto Serif TC', serif; }
+  .kicker { font: 400 15px/1 'Be Vietnam Pro', sans-serif; letter-spacing: .4em; text-transform: uppercase; color: #86693C; margin: 0 0 20px; }
+  .names { font: 400 104px/1.05 'Great Vibes', cursive; color: #6B1D2A; margin: 0; }
+  .names span { font: italic 300 52px/1 'Cormorant Garamond', serif; color: #B39869; margin: 0 18px; }
+  .date { margin: 22px 0 0; font: 300 34px/1 'Cormorant Garamond', serif; letter-spacing: .2em; color: #2F2522; font-feature-settings: "lnum" 1; }
+  .rule { display: inline-block; width: 60px; height: 1px; background: rgba(179,152,105,.7); vertical-align: middle; margin: 0 22px; }
+</style></head>
+<body>
+  <div class="frame"></div>
+  <div class="wrap">
+    <div class="seal">囍</div>
+    <p class="kicker">Trân trọng kính mời</p>
+    <h1 class="names">Bảo Phi<span>&amp;</span>Thúy Linh</h1>
+    <p class="date"><span class="rule"></span>29 · 12 · 2026<span class="rule"></span></p>
+  </div>
+</body></html>
