@@ -88,6 +88,7 @@
       '<span class="date__big">' + pad(d.getUTCDate()) + '.' + pad(d.getUTCMonth() + 1) + '</span>' +
       '<span>' + d.getUTCFullYear() + '</span>';
     $('#hero-lunar').textContent = pick(mainEvent.lunar);
+    $('#cover-date').textContent = t('weekdays')[d.getUTCDay()] + ' · ' + pad(d.getUTCDate()) + '.' + pad(d.getUTCMonth() + 1) + '.' + d.getUTCFullYear();
     $('#hero-quote').hidden = !C.quote;
     $('#hero-quote').textContent = C.quote ? '“' + pick(C.quote) + '”' : '';
 
@@ -97,13 +98,13 @@
       img.alt = pick(C.photos.heroAlt);
       img.decoding = 'async';
       img.setAttribute('fetchpriority', 'high');
-      img.onerror = function () { box.innerHTML = placeholderHTML(); };
+      img.onerror = function () { box.innerHTML = placeholderHTML(t('photoLabel')); };
       img.src = C.photos.hero;
       box.innerHTML = '';
       box.appendChild(img);
       heroDone = true;
     } else if (!C.photos.hero) {
-      box.innerHTML = placeholderHTML();
+      box.innerHTML = placeholderHTML(t('photoLabel'));
     } else {
       var im = box.querySelector('img');
       if (im) im.alt = pick(C.photos.heroAlt);
@@ -377,6 +378,51 @@
     return { stop: function () { cancelAnimationFrame(raf); window.removeEventListener('resize', size); } };
   })();
 
+  /* ---------- Cover: valance ----------
+     A swagged pelmet across the top of the curtain, drawn line by line on load.
+     Built for the real screen width so each swag keeps its shape. */
+  function buildValance() {
+    var el = $('#valance');
+    if (!el || $('#cover').classList.contains('is-gone')) return;
+    var w = Math.max(320, Math.round(window.innerWidth)), small = w < 600;
+    var band = small ? 10 : 18, depth = small ? 26 : 62, n = Math.max(3, Math.round(w / (small ? 130 : 260)));
+    var span = w / n, fill = '', lines = '';
+    fill += '<path class="fill" d="M0 0 L' + w + ' 0 L' + w + ' ' + band + ' L0 ' + band + ' Z"/>';
+    lines += '<path d="M0 ' + band + ' L' + w + ' ' + band + '"/>';
+    for (var i = 0; i < n; i++) {
+      var a = i * span, b = a + span, m = a + span / 2;
+      fill += '<path class="fill" d="M' + a + ' ' + band + ' Q' + m + ' ' + (band + depth * 2) + ' ' + b + ' ' + band + ' Z"/>';
+      [1, .74, .5].forEach(function (k) {
+        lines += '<path d="M' + a + ' ' + band + ' Q' + m + ' ' + (band + depth * 2 * k) + ' ' + b + ' ' + band + '"/>';
+      });
+    }
+    for (var j = 0; j <= n; j++) { // tassels at each join
+      var x = Math.min(w - 4, Math.max(4, j * span)), top = band + 2, cord = depth * .55;
+      lines += '<path d="M' + x + ' ' + top + ' L' + x + ' ' + (top + cord) + '"/>' +
+        '<circle cx="' + x + '" cy="' + (top + cord + 3) + '" r="3"/>' +
+        '<path d="M' + (x - 2) + ' ' + (top + cord + 6) + ' L' + (x - 4) + ' ' + (top + cord + 18) +
+        ' M' + x + ' ' + (top + cord + 6) + ' L' + x + ' ' + (top + cord + 19) +
+        ' M' + (x + 2) + ' ' + (top + cord + 6) + ' L' + (x + 4) + ' ' + (top + cord + 18) + '"/>';
+    }
+    var h = band + depth * 2 + 4;
+    el.style.height = h + 'px';
+    el.innerHTML = '<svg class="sketch sketch--valance" viewBox="0 0 ' + w + ' ' + h + '" width="' + w + '" height="' + h + '">' +
+      '<g class="valance__fill">' + fill + '</g>' +
+      '<g fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">' + lines + '</g></svg>';
+    prepSketch(el);
+    $$('.fill', el).forEach(function (p) { p.classList.remove('ln'); }); // fills fade in; only lines draw
+  }
+  buildValance();
+  // Cover drawings: leaf wreath round the seal, mai branches in the corners, tiebacks for the drapes
+  if (window.Sketches) {
+    $('#wreath').innerHTML = Sketches.render('wreath');
+    $$('.cover__flora').forEach(function (el) { el.innerHTML = Sketches.render('maiBranch'); });
+    $$('.drape__tie').forEach(function (el) { el.innerHTML = Sketches.render('tieback'); });
+    $$('#wreath, .cover__flora, .drape__tie').forEach(prepSketch); // not the valance: its fills must not draw
+  }
+  var valanceTimer;
+  window.addEventListener('resize', function () { clearTimeout(valanceTimer); valanceTimer = setTimeout(buildValance, 200); });
+
   /* ---------- Cover: fabric curtain ----------
      The inner edge of each drape is a clip-path polygon. Closed, the edge is a
      straight line at the centre. Open, it sweeps out to a tie-back at 60% height.
@@ -437,11 +483,12 @@
       $('.drape__rim', d).animate([{ clipPath: drapeShape(side, false, 0) }, { clipPath: drapeShape(side, true, .7) }], gather);
       $('.drape__cloth', d).animate([{ backgroundSize: '47px 100%, 83px 100%, 191px 100%, 160px 160px' }, { backgroundSize: '19px 100%, 34px 100%, 78px 100%, 160px 160px' }], gather);
       d.animate([{ transform: 'none', opacity: 1 }, { transform: 'translateX(' + (side === 'left' ? -100 : 100) + '%)', opacity: .4 }],
-        { duration: 1100, delay: 2300, easing: 'cubic-bezier(.55,0,.2,1)', fill: 'forwards' });
+        { duration: 1100, delay: 2700, easing: 'cubic-bezier(.55,0,.2,1)', fill: 'forwards' }); // hold so the tiebacks are seen
     });
+    setTimeout(function () { $$('.drape__tie').forEach(function (el) { el.classList.add('is-visible'); }); }, 1300);
     setTimeout(revealHero, 1000);
-    setTimeout(unlock, 2300);
-    setTimeout(finish, 3450);
+    setTimeout(unlock, 2700);
+    setTimeout(finish, 3850);
   }
   $('#open-invite').addEventListener('click', openInvite);
 

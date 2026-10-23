@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Great+Vibes&display=swap">
   <!-- Song Hỷ glyph only: the text= parameter keeps this font download to a few KB. -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300&text=%E5%9B%8D&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css?v=1792783307">
+  <link rel="stylesheet" href="assets/css/style.css?v=1792790425">
 </head>
 <body class="is-locked">
 
@@ -61,14 +61,20 @@
   <!-- ============ COVER ============ -->
   <!-- Two fabric drapes. main.js animates them: closed → tied back → off screen. -->
   <div class="cover" id="cover" role="dialog" aria-modal="true" aria-labelledby="cover-greeting">
-    <div class="drape drape--left" aria-hidden="true"><div class="drape__rim"></div><div class="drape__cloth"></div></div>
-    <div class="drape drape--right" aria-hidden="true"><div class="drape__rim"></div><div class="drape__cloth"></div></div>
-    <div class="cover__rod" aria-hidden="true"></div>
+    <div class="drape drape--left" aria-hidden="true"><div class="drape__rim"></div><div class="drape__cloth"></div><div class="drape__tie"></div></div>
+    <div class="drape drape--right" aria-hidden="true"><div class="drape__rim"></div><div class="drape__cloth"></div><div class="drape__tie"></div></div>
+    <div class="cover__flora cover__flora--left is-visible" aria-hidden="true"></div>
+    <div class="cover__flora cover__flora--right is-visible" aria-hidden="true"></div>
+    <div class="cover__valance is-visible" id="valance" aria-hidden="true"></div>
     <canvas class="cover__petals" id="petals" aria-hidden="true"></canvas>
     <div class="cover__content">
       <p class="kicker" data-i18n="coverKicker">Thiệp mời</p>
-      <div class="seal" aria-hidden="true"><span class="hy">囍</span></div>
+      <div class="seal-wrap" aria-hidden="true">
+        <div class="cover__wreath is-visible" id="wreath"></div>
+        <div class="seal"><span class="hy">囍</span></div>
+      </div>
       <h1 class="cover__greeting" id="cover-greeting" data-i18n="coverGreeting">Trân trọng kính mời Quý khách</h1>
+      <p class="cover__date" id="cover-date"></p>
       <button class="btn btn--solid cover__open" id="open-invite" type="button" data-i18n="coverOpen">Mở thiệp</button>
     </div>
   </div>
@@ -250,9 +256,9 @@
 
   <noscript><p class="noscript">Vui lòng bật JavaScript để xem thiệp. / Please enable JavaScript to view this invitation.</p></noscript>
 
-  <script src="config.js?v=1792783307"></script>
-  <script src="assets/js/album.js?v=1792783307"></script>
-  <script src="assets/js/sketches.js?v=1792783307"></script>
-  <script src="assets/js/main.js?v=1792783307"></script>
+  <script src="config.js?v=1792790425"></script>
+  <script src="assets/js/album.js?v=1792790425"></script>
+  <script src="assets/js/sketches.js?v=1792790425"></script>
+  <script src="assets/js/main.js?v=1792790425"></script>
 </body>
 </html>

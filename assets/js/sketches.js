@@ -45,6 +45,22 @@
       hy(X(0), Y(32), (11 * s).toFixed(1));
   }
 
+  function leaf(x, y, angle, len) { // almond leaf with a centre vein
+    var w = len * .3;
+    return '<g transform="translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') rotate(' + angle.toFixed(1) + ')">' +
+      '<path d="M0 0 C' + (len * .3) + ' ' + (-w) + ' ' + (len * .7) + ' ' + (-w) + ' ' + len + ' 0 C' + (len * .7) + ' ' + w + ' ' + (len * .3) + ' ' + w + ' 0 0 Z"/>' +
+      '<path d="M' + (len * .15) + ' 0 L' + (len * .8) + ' 0"/></g>';
+  }
+  function petalBlossom(x, y, r) { // hoa mai with petals that fill with gold once drawn
+    var p = '';
+    for (var i = 0; i < 5; i++) {
+      var a = (i * 72 - 90 + (x % 30)) * Math.PI / 180;
+      p += '<circle class="petal" cx="' + (x + Math.cos(a) * r).toFixed(1) + '" cy="' + (y + Math.sin(a) * r).toFixed(1) + '" r="' + (r * .7).toFixed(1) + '"/>';
+    }
+    return p + '<circle cx="' + x + '" cy="' + y + '" r="' + (r * .28).toFixed(1) + '"/>' +
+      '<path d="M' + x + ' ' + y + ' L' + (x + r * .5) + ' ' + (y - r * .55) + ' M' + x + ' ' + y + ' L' + (x - r * .55) + ' ' + (y - r * .4) + '"/>';
+  }
+
   function house(treeSide) {
     var d = '';
     function L(x1, y1, x2, y2) { return '<path d="M' + x1 + ' ' + y1 + ' L' + x2 + ' ' + y2 + '"/>'; }
@@ -229,6 +245,48 @@
         sparkle(160, 20, 4) + sparkle(242, 24, 3.5);
     },
 
+    // Cover: a wreath of leaves around the seal, open at the top, tied at the bottom
+    wreath: function () {
+      var d = '', R = 82;
+      function pt(a) { var r = a * Math.PI / 180; return [100 + R * Math.cos(r), 100 + R * Math.sin(r)]; }
+      function vine(from, to) {
+        var a = pt(from), b = pt(to), sweep = to > from ? 1 : 0;
+        d += '<path d="M' + a[0].toFixed(1) + ' ' + a[1].toFixed(1) + ' A' + R + ' ' + R + ' 0 0 ' + sweep + ' ' + b[0].toFixed(1) + ' ' + b[1].toFixed(1) + '"/>';
+        var step = to > from ? 14 : -14, k = 0;
+        for (var ang = from + step; Math.abs(ang - from) < Math.abs(to - from); ang += step, k++) {
+          var q = pt(ang), tangent = ang + (to > from ? 90 : -90);
+          d += leaf(q[0], q[1], tangent + (k % 2 ? 38 : -38), 15 - Math.abs(ang - from) / 40);
+        }
+      }
+      vine(98, 238); vine(82, -58);
+      d += '<path d="M100 182 C92 176 86 184 94 188 C98 190 100 186 100 182 C100 186 102 190 106 188 C114 184 108 176 100 182"/>';
+      d += '<path d="M98 186 L92 198 M102 186 L108 198"/>';
+      return d;
+    },
+
+    // Cover: a hồng mai branch growing in from a bottom corner
+    maiBranch: function () {
+      return '<path d="M0 262 C40 232 70 202 96 170 C120 140 150 122 190 106 C220 94 250 72 268 50"/>' +
+        '<path d="M96 170 C110 142 112 112 104 84"/>' +
+        '<path d="M190 106 C202 122 224 130 248 128"/>' +
+        '<path d="M150 124 C160 112 170 102 172 88"/>' +
+        '<path d="M58 212 C80 208 96 200 110 188"/>' +
+        '<path d="M232 84 C238 76 240 68 238 60"/>' +
+        petalBlossom(268, 50, 8) + petalBlossom(104, 84, 7) + petalBlossom(248, 128, 7.5) +
+        petalBlossom(172, 88, 6) + petalBlossom(130, 134, 5.5) + petalBlossom(110, 188, 5.5) +
+        '<circle cx="238" cy="58" r="2.6"/><circle cx="60" cy="210" r="2.4"/><circle cx="214" cy="98" r="2.2"/>' +
+        sparkle(206, 40, 4) + sparkle(60, 150, 3);
+    },
+
+    // Cover: rope tieback with a tassel, shown on each drape once it is gathered
+    tieback: function () {
+      return '<path d="M0 22 C28 10 66 12 88 24 C70 34 32 36 0 30"/>' +
+        '<path d="M0 26 C30 18 62 20 84 27"/>' +
+        '<circle cx="90" cy="27" r="4.5"/>' +
+        '<path d="M86 31 C84 38 84 44 82 56 M88 32 L87 58 M90 32 L90 59 M92 32 L93 58 M94 31 C96 38 96 44 98 56"/>' +
+        '<path d="M81 52 L99 52"/>';
+    },
+
     // Mừng cưới: envelope with a wax seal
     envelope: function () {
       return '<path d="M30 46 L130 46 L130 104 L30 104 Z"/>' +
@@ -238,7 +296,7 @@
     }
   };
 
-  var VIEWBOX = { venue: '0 0 320 150', thread: '0 0 400 110' }; // wide drawings; the rest are 160 × 120
+  var VIEWBOX = { venue: '0 0 320 150', thread: '0 0 400 110', wreath: '0 0 200 200', maiBranch: '0 0 300 264', tieback: '0 0 100 62' }; // wide drawings; the rest are 160 × 120
 
   window.Sketches = {
     has: function (name) { return !!ART[name]; },
