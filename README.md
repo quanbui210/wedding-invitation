@@ -155,7 +155,7 @@ To self-host, download the WOFF2 files (for example from https://gwfh.mranftl.co
 
 ## 7. Checks before sending the link
 
-- Replace every `// TODO` in `config.js`, and the `YOUR-DOMAIN` tags in `index.html`.
+- Replace every `// TODO` in `config.js`. The `og:` tags in `index.html` point to https://phi-linh.xyz.
 - Open the link from Zalo, Messenger and iOS Safari on a real phone.
 - Submit one test RSVP, then delete the test row from the sheet.
 - Paste the link into a Zalo chat with yourself to check the preview card.
