@@ -284,7 +284,7 @@ a { color: inherit; }
   display: block; margin: 2px 0;
   font: italic 300 .5em/1 var(--serif); color: var(--gold);
 }
-.hero__lead { margin: 14px 0 34px; font: italic 400 19px/1.5 var(--serif); color: var(--ink-soft); }
+.hero__lead { max-width: 20em; margin: 14px auto 34px; font: italic 400 19px/1.5 var(--serif); color: var(--ink-soft); text-wrap: balance; }
 
 .date {
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
@@ -609,12 +609,12 @@ a.event__addr:hover span { text-decoration-color: var(--burgundy); }
   .hero > .kicker { grid-area: kicker; align-self: end; margin-bottom: 26px; }
   .hero__photo { grid-area: photo; width: 100%; max-width: 440px; margin: 0 auto; align-self: center; }
   .hero__names { grid-area: names; font-size: clamp(72px, 7vw, 104px); }
-  .hero__lead { grid-area: lead; font-size: 23px; margin: 22px 0 40px; }
+  .hero__lead { grid-area: lead; font-size: 23px; margin: 22px auto 40px; }
   .hero .date { grid-area: date; max-width: 400px; }
   .date__big { font-size: 56px !important; }
   .hero__lunar { grid-area: lunar; font-size: 18px; }
   .hero__quote { grid-area: quote; align-self: start; font-size: 20px; }
-  .hero__sprig { left: auto; right: 4vw; top: 64px; width: 220px; height: 74px; transform: none; }
+  .hero__sprig { left: auto; right: 3vw; top: 24px; width: 220px; height: 74px; transform: none; }
 
   /* Family */
   .family__intro { font-size: 21px; margin-bottom: 48px; }
