@@ -70,7 +70,7 @@
     renderGifts();
     renderRsvpEvents();
     renderAlbum();
-    tickCountdown();
+    renderWhen();
     syncMusicLabel();
     if (lastReply) showThanks(lastReply);
   }
@@ -208,19 +208,77 @@
     b.setAttribute('aria-expanded', String(open));
   });
 
-  /* ---------- Countdown ---------- */
-  function tickCountdown() {
-    var el = $('#countdown');
-    var ms = new Date(mainEvent.start).getTime() - Date.now();
-    if (ms <= 0) { el.innerHTML = '<p class="countdown__done">' + esc(t('countdownDone')) + '</p>'; return; }
-    var m = Math.floor(ms / 60000);
-    var parts = [[Math.floor(m / 1440), 'days'], [Math.floor(m / 60) % 24, 'hours'], [m % 60, 'minutes']];
-    el.innerHTML = parts.map(function (p) {
-      return '<div class="countdown__cell"><span class="countdown__num">' + (p[1] === 'days' ? p[0] : pad(p[0])) +
-        '</span><span class="countdown__label">' + esc(t(p[1])) + '</span></div>';
-    }).join('');
+  /* ---------- Date: tear-off calendar ('bloc') or month page ('page') ---------- */
+  var calStyle = (location.search.match(/[?&]cal=(bloc|page)/) || [])[1] || (C.calendar && C.calendar.style) || 'bloc';
+  var calPlayed = false, whenIO = null;
+  function dayIndex(d) { return Math.floor(d.getTime() / 864e5); } // whole days of a vn()-shifted date
+  function monthLabel(d) {
+    return t('monthLabel').replace('{m}', d.getUTCMonth() + 1).replace('{M}', MONTHS_EN[d.getUTCMonth()]).replace('{y}', d.getUTCFullYear());
   }
-  setInterval(tickCountdown, 20000);
+  function blocPage(d, final) {
+    return '<div class="bloc__page' + (final ? ' bloc__page--final' : ' bloc__page--tear') + (d.getUTCDay() === 0 ? ' is-sun' : '') + '">' +
+      (final ? '<span class="bloc__stamp hy" aria-hidden="true">囍</span>' : '') +
+      '<p class="bloc__month">' + esc(monthLabel(d)) + '</p>' +
+      '<p class="bloc__day">' + d.getUTCDate() + '</p>' +
+      '<p class="bloc__wd">' + esc(t('weekdays')[d.getUTCDay()]) + '</p>' +
+      (final ? '<p class="bloc__names script">' + namesHTML() + '</p>' +
+        (mainEvent.lunarShort ? '<p class="bloc__lunar"><span>' + esc(t('lunarLabel')) + '</span>' + esc(mainEvent.lunarShort) + ' · ' + esc(pick(mainEvent.lunarYear)) + '</p>' : '') : '') +
+      '</div>';
+  }
+  function blocHTML(end, left) {
+    // Pages between today and the day, torn off one by one when the calendar scrolls into view
+    var pages = [];
+    if (!calPlayed && !reduced && left > 0 && 'IntersectionObserver' in window) {
+      var n = Math.min(left, 6);
+      for (var i = n - 1; i >= 0; i--) pages.push( // newest first in the DOM, so today ends up on top
+        blocPage(new Date(end.getTime() - Math.round(left * (n - i) / n) * 864e5)));
+    }
+    return '<div class="bloc"><div class="bloc__head"><span class="hy" aria-hidden="true">囍</span></div>' +
+      '<div class="bloc__stack">' + blocPage(end, true) + pages.join('') + '</div></div>';
+  }
+  function playBloc() {
+    calPlayed = true;
+    var at = 450;
+    $$('#when .bloc__page--tear').reverse().forEach(function (p, i) { // top page first
+      at += i ? Math.max(230, 640 - i * 100) : 0;
+      setTimeout(function () { p.classList.add('is-torn'); }, at);
+    });
+  }
+  function pageHTML(d) {
+    var y = d.getUTCFullYear(), m = d.getUTCMonth(), day = d.getUTCDate();
+    var first = (new Date(Date.UTC(y, m, 1)).getUTCDay() + 6) % 7; // Monday-first column of the 1st
+    var len = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+    var wd = t('weekdaysShort'), cells = wd.slice(1).concat(wd[0]).map(function (w, i) {
+      return '<span class="mcal__wd' + (i === 6 ? ' is-sun' : '') + '">' + esc(w) + '</span>';
+    }).join('');
+    for (var i = 0; i < first; i++) cells += '<span></span>';
+    for (var n = 1; n <= len; n++) {
+      cells += n === day
+        ? '<span class="mcal__day"><b>' + n + '</b><svg class="sketch mcal__heart" viewBox="0 0 64 60" aria-hidden="true" focusable="false">' +
+          '<g filter="url(#hand)" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">' +
+          '<path d="M34 53 C 14 41, 3 29, 8 17 C 13 5, 28 5, 32 18 C 36 5, 51 5, 56 17 C 61 29, 50 41, 28 55"/></g></svg></span>'
+        : '<span' + ((first + n - 1) % 7 === 6 ? ' class="is-sun"' : '') + '>' + n + '</span>';
+    }
+    return '<div class="mcal"><p class="mcal__month">' + esc(monthLabel(d)) + '</p>' +
+      '<div class="mcal__grid">' + cells + '</div>' +
+      '<p class="mcal__lunar">' + esc(pick(mainEvent.lunar)) + '</p></div>';
+  }
+  function renderWhen() {
+    var el = $('#when'), end = vn(mainEvent.start);
+    var left = dayIndex(end) - dayIndex(new Date(Date.now() + VN_OFFSET));
+    $('#when-left').innerHTML = left > 0
+      ? esc(t(left === 1 ? 'dayLeft' : 'daysLeft')).replace('{n}', '<b>' + left + '</b>')
+      : esc(t('countdownDone'));
+    el.classList.add('when--' + calStyle);
+    if (whenIO) { whenIO.disconnect(); whenIO = null; }
+    if (calStyle === 'page') { el.innerHTML = pageHTML(end); prepSketch(el); return; }
+    el.innerHTML = blocHTML(end, left);
+    if (!$('.bloc__page--tear', el)) return;
+    whenIO = new IntersectionObserver(function (en) {
+      if (en[0].isIntersecting) { whenIO.disconnect(); whenIO = null; playBloc(); }
+    }, { threshold: .6 });
+    whenIO.observe(el);
+  }
 
   /* ---------- Album ---------- */
   function renderAlbum() {

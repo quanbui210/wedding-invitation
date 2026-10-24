@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Great+Vibes&display=swap">
   <!-- Song Hỷ glyph only: the text= parameter keeps this font download to a few KB. -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300&text=%E5%9B%8D&display=swap">
-  <link rel="stylesheet" href="assets/css/style.css?v=1792863272">
+  <link rel="stylesheet" href="assets/css/style.css?v=1792870100">
 </head>
 <body class="is-locked">
 
@@ -131,10 +131,11 @@
       <ol class="program__list" id="program"></ol>
     </section>
 
-    <!-- ============ COUNTDOWN ============ -->
-    <section class="countdown section" aria-labelledby="countdown-title">
-      <p class="kicker reveal" id="countdown-title" data-i18n="countdownTitle">Còn lại</p>
-      <div class="countdown__grid reveal" id="countdown" aria-live="off"></div>
+    <!-- ============ DATE (calendar.style in config.js: 'bloc' tear-off or 'page' month; ?cal= overrides) ============ -->
+    <section class="when section" aria-labelledby="when-title">
+      <p class="kicker reveal" id="when-title" data-i18n="whenTitle">Ngày chung đôi</p>
+      <div class="when reveal" id="when"></div>
+      <p class="when__left reveal" id="when-left"></p>
     </section>
 
     <!-- ============ ALBUM (self-contained: assets/js/album.js + .album styles) ============ -->
@@ -256,9 +257,9 @@
 
   <noscript><p class="noscript">Vui lòng bật JavaScript để xem thiệp. / Please enable JavaScript to view this invitation.</p></noscript>
 
-  <script src="config.js?v=1792863272"></script>
-  <script src="assets/js/album.js?v=1792863272"></script>
-  <script src="assets/js/sketches.js?v=1792863272"></script>
-  <script src="assets/js/main.js?v=1792863272"></script>
+  <script src="config.js?v=1792870100"></script>
+  <script src="assets/js/album.js?v=1792870100"></script>
+  <script src="assets/js/sketches.js?v=1792870100"></script>
+  <script src="assets/js/main.js?v=1792870100"></script>
 </body>
 </html>

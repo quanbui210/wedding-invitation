@@ -6,7 +6,7 @@ A static, single-page wedding invitation. Plain HTML, CSS and JS with no build s
 index.html                 page skeleton (no copy to edit here, except the <head> meta tags)
 config.js                  ALL content: names, dates, venues, photos, music, RSVP URL, VI/EN text
 assets/css/style.css       design (colour and font tokens at the top, in :root)
-assets/js/main.js          page logic: language, cover, events, countdown, gift, RSVP
+assets/js/main.js          page logic: language, cover, events, calendar, gift, RSVP
 assets/js/album.js         self-contained gallery + full-screen viewer
 assets/js/sketches.js      hand-drawn line illustrations for the programme and gift section
 assets/images/             hero.webp, og-preview.jpg, favicon.svg
@@ -40,6 +40,7 @@ Every editable value is in `config.js`. Placeholders are marked `// TODO`.
 | Story milestones (`[]` hides the section) | `story` |
 | Bank details and QR images (`[]` hides the section) | `gifts` |
 | Every label, button and message in both languages | `text.vi` and `text.en` |
+| Date section: tear-off calendar (`'bloc'`) or month page (`'page'`) | `calendar.style`; `?cal=page` or `?cal=bloc` in the URL overrides it |
 | Hashtag, default language, petals on/off | top level and `effects` |
 
 Notes:

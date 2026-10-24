@@ -95,6 +95,10 @@ window.WEDDING = {
     autoplayOnOpen: true                // starts when the guest taps "Mở thiệp"
   },
 
+  /* Date section: 'bloc' is a tear-off wall calendar, 'page' a month page with the day circled.
+     Add ?cal=bloc or ?cal=page to the URL to preview the other one. */
+  calendar: { style: 'bloc' },
+
   effects: {
     petals: true                        // falling petals on the cover only
   },
@@ -135,8 +139,13 @@ window.WEDDING = {
       addCalendar: 'Lưu vào lịch',
       calendarIcs: 'Tải tệp .ics',
       calendarGoogle: 'Google Calendar',
-      countdownTitle: 'Còn lại',
-      days: 'ngày', hours: 'giờ', minutes: 'phút',
+      whenTitle: 'Ngày chung đôi',
+      daysLeft: 'Còn {n} ngày nữa',
+      dayLeft: 'Còn {n} ngày nữa',
+      lunarLabel: 'Âm lịch',
+      wedDay: 'Ngày cưới',
+      monthLabel: 'Tháng {m} · {y}',
+      weekdaysShort: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
       countdownDone: 'Hôm nay là ngày vui của chúng tôi',
       albumTitle: 'Khoảnh khắc',
       albumSoon: 'Ảnh sẽ được cập nhật',
@@ -191,8 +200,13 @@ window.WEDDING = {
       addCalendar: 'Add to calendar',
       calendarIcs: 'Download .ics',
       calendarGoogle: 'Google Calendar',
-      countdownTitle: 'Counting down',
-      days: 'days', hours: 'hours', minutes: 'minutes',
+      whenTitle: 'Save the date',
+      daysLeft: '{n} days to go',
+      dayLeft: '{n} day to go',
+      lunarLabel: 'Lunar',
+      wedDay: 'Wedding day',
+      monthLabel: '{M} {y}',
+      weekdaysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
       countdownDone: 'Today is our wedding day',
       albumTitle: 'Moments',
       albumSoon: 'Photos coming soon',
