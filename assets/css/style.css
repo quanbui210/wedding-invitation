@@ -290,7 +290,7 @@ a { color: inherit; }
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
   max-width: 330px; margin: 0 auto 18px;
 }
-.date > span { padding: 6px 0; font: 400 11px/1.4 var(--sans); letter-spacing: .26em; text-transform: uppercase; color: var(--ink-soft); }
+.date > span { padding: 6px 0; font: 400 13px/1.4 var(--sans); letter-spacing: .26em; text-transform: uppercase; color: var(--ink-soft); }
 .date > span:first-child { border-right: 1px solid var(--gold-line); padding-right: 14px; }
 .date > span:last-child { border-left: 1px solid var(--gold-line); padding-left: 14px; }
 .date__big { padding: 0 18px !important; font: 300 44px/1 var(--serif) !important; letter-spacing: .02em !important; color: var(--burgundy) !important; }

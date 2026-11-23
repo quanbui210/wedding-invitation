@@ -50,12 +50,12 @@ window.WEDDING = {
       main: true,
       name: { vi: 'Tiệc Cưới', en: 'Wedding Reception' },
       host: { vi: 'Phòng tiệc Platinum · Tầng 4', en: 'Platinum Ballroom · 4th floor' },
-      doors: '11:00',                       // TODO confirm: guests welcomed from
+      doors: '17:30',                       // guests welcomed from
       sketch: 'venue',                      // drawing at the top of the card (assets/js/sketches.js)
-      start: '2026-12-29T11:30:00+07:00',
-      end:   '2026-12-29T14:00:00+07:00',   // TODO end time is a guess
-      lunar: { vi: 'Tức ngày 21 tháng 11 năm Bính Ngọ', en: '21st day of the 11th lunar month' },
-      lunarShort: '21.11',
+      start: '2026-12-19T18:30:00+07:00',
+      end:   '2026-12-19T21:30:00+07:00',   // TODO end time is a guess
+      lunar: { vi: 'Tức ngày 11 tháng 11 năm Bính Ngọ', en: '11th day of the 11th lunar month' },
+      lunarShort: '11.11',
       lunarYear: { vi: 'Năm Bính Ngọ', en: 'Year of the Horse' },
       venue: 'Trung tâm Tiệc cưới The One',
       address: 'Số 2 Chương Dương Độ, Phường Hồng Hà, Hà Nội',
@@ -68,11 +68,10 @@ window.WEDDING = {
      sketch: 'lanterns' | 'tea' | 'cake' | 'toast' | 'scooter' | 'envelope' (see assets/js/sketches.js)
      [] hides the section. */
   program: [ // TODO confirm times
-    { time: '11:00', sketch: 'lanterns', title: { vi: 'Đón khách', en: 'Welcome' }, note: { vi: 'Chụp ảnh cùng cô dâu chú rể', en: 'Photos with the couple' } },
-    { time: '11:30', sketch: 'tea',      title: { vi: 'Lễ thành hôn', en: 'The ceremony' }, note: { vi: 'Dâng trà, trao nhẫn', en: 'Tea ceremony and rings' } },
-    { time: '12:00', sketch: 'cake',     title: { vi: 'Khai tiệc', en: 'Lunch' }, note: { vi: 'Cắt bánh, dùng bữa', en: 'Cake and lunch' } },
-    { time: '12:45', sketch: 'toast',    title: { vi: 'Nâng ly', en: 'Toasts' }, note: { vi: 'Lời chúc và âm nhạc', en: 'Wishes and music' } },
-    { time: '13:30', sketch: 'scooter',  title: { vi: 'Tiễn khách', en: 'Farewell' }, note: { vi: 'Hẹn gặp lại', en: 'Until next time' } }
+    { time: '17:30', sketch: 'lanterns', title: { vi: 'Đón khách', en: 'Welcome' }, note: { vi: 'Chụp photobooth', en: 'Photobooth' } },
+    { time: '18:30', sketch: 'tea',      title: { vi: 'Lễ thành hôn', en: 'The ceremony' }, note: { vi: 'Cử hành hôn lễ', en: 'Wedding ceremony' } },
+    { time: '19:00', sketch: 'cake',     title: { vi: 'Khai tiệc', en: 'Dinner' }, note: { vi: 'Cắt bánh, dùng bữa', en: 'Cake and dinner' } },
+    { time: '13:30', sketch: 'scooter',  title: { vi: 'Tiễn khách', en: 'Farewell' }, note: { vi: 'Hẹn gặp lại', en: 'Until next time' } } // TODO still the old lunch time, ask the couple
   ],
 
   /* Photos. Leave a path empty ('') to show the designed placeholder.
@@ -106,17 +105,16 @@ window.WEDDING = {
   rsvp: {
     // TODO paste the Apps Script Web App URL ending in /exec. Empty = demo mode (nothing is saved).
     endpoint: 'https://script.google.com/macros/s/AKfycbxjiuQYJ7qGK88pBZHi_Ij7PLKIIIxXv-l59TtT4gqjbFhhY7jWUlFP4LzgLf7ev1YEww/exec',
-    deadline: { vi: 'Vui lòng phản hồi trước ngày 20.12.2026', en: 'Kindly reply by 20 December 2026' } // TODO confirm
+    deadline: { vi: 'Vui lòng phản hồi trước ngày 6.12.2026', en: 'Kindly reply by 6 December 2026' }
   },
 
   story: [ // 2–4 milestones; [] hides the section. Example:
     // { year: '2019', title: { vi: 'Lần đầu gặp gỡ', en: 'First meeting' }, text: { vi: '...', en: '...' } },
   ],
 
-  gifts: [ // TODO real bank details and QR images, or [] to hide the section
-    { side: { vi: 'Chú rể', en: 'Groom' }, bank: 'Ngân hàng', holder: 'DOAN BAO PHI', number: '0000000000', qr: '' },
-    { side: { vi: 'Cô dâu', en: 'Bride' }, bank: 'Ngân hàng', holder: 'PHAM THUY LINH', number: '0000000000', qr: '' }
-  ],
+  gifts: [], // section hidden for now. To show it again, add entries like:
+  // { side: { vi: 'Chú rể', en: 'Groom' }, bank: 'Ngân hàng', holder: 'DOAN BAO PHI', number: '0000000000', qr: '' },
+  // { side: { vi: 'Cô dâu', en: 'Bride' }, bank: 'Ngân hàng', holder: 'PHAM THUY LINH', number: '0000000000', qr: '' }
 
   /* All interface copy. Keys are referenced by data-i18n in index.html. */
   text: {
@@ -125,7 +123,7 @@ window.WEDDING = {
       coverGreeting: 'Trân trọng kính mời Quý khách',
       coverOpen: 'Mở thiệp',
       heroKicker: 'Lễ thành hôn',
-      heroLead: 'Trân trọng kính mời Quý khách đến dự tiệc cưới của chúng tôi',
+      heroLead: 'Trân trọng kính mời Quý khách đến dự tiệc cưới của gia đình chúng tôi',
       photoLabel: 'Ảnh cưới',
       familyTitle: 'Gia đình hai bên',
       groomLabel: 'Chú rể', brideLabel: 'Cô dâu',

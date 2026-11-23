@@ -179,7 +179,7 @@
         '<span class="event__corner" aria-hidden="true"></span><span class="event__corner" aria-hidden="true"></span>' +
         (ev.sketch && window.Sketches ? '<div class="event__art">' + Sketches.render(ev.sketch) + '</div>' : '') +
         '<p class="kicker event__name" id="ev-' + i + '">' + esc(pick(ev.name)) + '</p>' +
-        '<h3 class="event__venue">' + esc(ev.venue) + '</h3>' +
+        '<h3 class="event__venue">' + esc(ev.venue).replace(/ (\S+)$/, '&nbsp;$1') + '</h3>' + // keep "The One" on one line
         '<p class="event__host">' + esc(pick(ev.host)) + '</p>' +
         '<div class="event__facts">' + facts + '</div>' +
         (ev.lunarShort ? '' : '<p class="event__lunar">' + esc(pick(ev.lunar)) + '</p>') +
