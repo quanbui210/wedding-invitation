@@ -53,7 +53,7 @@ window.WEDDING = {
       doors: '17:30',                       // guests welcomed from
       sketch: 'venue',                      // drawing at the top of the card (assets/js/sketches.js)
       start: '2026-12-19T18:30:00+07:00',
-      end:   '2026-12-19T21:30:00+07:00',   // TODO end time is a guess
+      end:   '2026-12-19T21:30:00+07:00',   // only used by the calendar file (Lưu vào lịch)
       lunar: { vi: 'Tức ngày 11 tháng 11 năm Bính Ngọ', en: '11th day of the 11th lunar month' },
       lunarShort: '11.11',
       lunarYear: { vi: 'Năm Bính Ngọ', en: 'Year of the Horse' },
@@ -70,8 +70,7 @@ window.WEDDING = {
   program: [ // TODO confirm times
     { time: '17:30', sketch: 'lanterns', title: { vi: 'Đón khách', en: 'Welcome' }, note: { vi: 'Chụp photobooth', en: 'Photobooth' } },
     { time: '18:30', sketch: 'tea',      title: { vi: 'Lễ thành hôn', en: 'The ceremony' }, note: { vi: 'Cử hành hôn lễ', en: 'Wedding ceremony' } },
-    { time: '19:00', sketch: 'cake',     title: { vi: 'Khai tiệc', en: 'Dinner' }, note: { vi: 'Cắt bánh, dùng bữa', en: 'Cake and dinner' } },
-    { time: '13:30', sketch: 'scooter',  title: { vi: 'Tiễn khách', en: 'Farewell' }, note: { vi: 'Hẹn gặp lại', en: 'Until next time' } } // TODO still the old lunch time, ask the couple
+    { time: '19:00', sketch: 'cake',     title: { vi: 'Khai tiệc', en: 'Dinner' }, note: { vi: 'Cắt bánh, dùng bữa', en: 'Cake and dinner' } }
   ],
 
   /* Photos. Leave a path empty ('') to show the designed placeholder.
