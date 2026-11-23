@@ -44,8 +44,11 @@ body {
   font: 300 15px/1.75 var(--sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-feature-settings: "lnum" 1; /* lining numerals; survives the font shorthand */
 }
+/* Lining numerals everywhere: Cormorant defaults to old-style digits (a 3 and 9 that drop below the line,
+   a 1 like a small "I"), which older guests find hard to read. Every `font:` shorthand resets
+   font-variant-numeric, so this needs !important to survive them. */
+*, *::before, *::after { font-variant-numeric: lining-nums !important; }
 body.is-locked { overflow: hidden; height: 100%; }
 
 img { display: block; max-width: 100%; }
@@ -293,7 +296,7 @@ a { color: inherit; }
 .date > span { padding: 6px 0; font: 400 13px/1.4 var(--sans); letter-spacing: .26em; text-transform: uppercase; color: var(--ink-soft); }
 .date > span:first-child { border-right: 1px solid var(--gold-line); padding-right: 14px; }
 .date > span:last-child { border-left: 1px solid var(--gold-line); padding-left: 14px; }
-.date__big { padding: 0 18px !important; font: 300 44px/1 var(--serif) !important; letter-spacing: .02em !important; color: var(--burgundy) !important; }
+.date__big { padding: 0 18px !important; font: 300 44px/1 var(--serif) !important; letter-spacing: .02em !important; color: var(--burgundy) !important; font-variant-numeric: lining-nums !important; }
 .hero__lunar { margin: 0; font: italic 400 16px/1.5 var(--serif); color: var(--ink-soft); }
 .hero__quote {
   max-width: 24em; margin: 36px auto 0; padding: 22px 0 0;
@@ -473,7 +476,7 @@ a.event__addr:hover span { text-decoration-color: var(--burgundy); }
 }
 .mcal::before { content: ''; position: absolute; inset: 5px; border: 1px solid var(--gold-faint); pointer-events: none; }
 .mcal__month { margin: 0 0 16px; font: 400 26px/1.2 var(--serif); color: var(--ink); }
-.mcal__grid { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 6px; font: 400 17px/34px var(--serif); color: var(--ink-soft); font-variant-numeric: lining-nums tabular-nums; }
+.mcal__grid { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 6px; font: 400 17px/34px var(--serif); color: var(--ink-soft); font-variant-numeric: lining-nums tabular-nums !important; }
 .mcal__grid .is-sun { color: var(--burgundy); opacity: .75; }
 .mcal__wd { font: 500 9.5px/22px var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--gold-text); border-bottom: 1px solid var(--gold-faint); margin-bottom: 4px; }
 .mcal__day { position: relative; }
