@@ -77,11 +77,20 @@ window.WEDDING = {
      Album: add one line per photo. orientation: 'portrait' or 'landscape'.
      Placeholder tiles are shown automatically while `album` is empty. */
   photos: {
-    hero: '',                 // TODO e.g. 'assets/images/hero.webp'
+    hero: 'assets/images/hero.webp',
     heroAlt: { vi: 'Ảnh cưới của Bảo Phi và Thúy Linh', en: 'Bảo Phi and Thúy Linh' },
+    // Order runs from the garden in daylight to golden hour and sunset by the lake.
+    // Portraits pair up two per row; the landscape takes a full row.
     album: [
-      // { src: 'assets/images/album/01.webp', orientation: 'portrait',  caption: { vi: 'Forever always', en: 'Forever always' } },
-      // { src: 'assets/images/album/02.webp', orientation: 'landscape', caption: null },
+      { src: 'assets/images/album/01.webp', orientation: 'portrait',  caption: null },
+      { src: 'assets/images/album/02.webp', orientation: 'portrait',  caption: null },
+      { src: 'assets/images/album/03.webp', orientation: 'portrait',  caption: null },
+      { src: 'assets/images/album/04.webp', orientation: 'portrait',  caption: null },
+      { src: 'assets/images/album/05.webp', orientation: 'portrait',  caption: null },
+      { src: 'assets/images/album/06.webp', orientation: 'portrait',  caption: null },
+      { src: 'assets/images/album/07.webp', orientation: 'landscape', caption: null },
+      { src: 'assets/images/album/08.webp', orientation: 'portrait',  caption: null },
+      { src: 'assets/images/album/09.webp', orientation: 'portrait',  caption: null }
     ],
     // Layout used for placeholders while the album is empty (8 tiles).
     placeholderLayout: ['portrait', 'portrait', 'landscape', 'portrait', 'portrait', 'landscape', 'portrait', 'portrait']
