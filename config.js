@@ -79,18 +79,14 @@ window.WEDDING = {
   photos: {
     hero: 'assets/images/hero.webp',
     heroAlt: { vi: 'Ảnh cưới của Bảo Phi và Thúy Linh', en: 'Bảo Phi and Thúy Linh' },
-    // Order runs from the garden in daylight to golden hour and sunset by the lake.
-    // Portraits pair up two per row; the landscape takes a full row.
+    // Landscape, two portraits, landscape, two portraits: daylight garden first, then golden hour and sunset by the lake.
     album: [
-      { src: 'assets/images/album/01.webp', orientation: 'portrait',  caption: null },
+      { src: 'assets/images/album/01.webp', orientation: 'landscape', caption: null },
       { src: 'assets/images/album/02.webp', orientation: 'portrait',  caption: null },
       { src: 'assets/images/album/03.webp', orientation: 'portrait',  caption: null },
-      { src: 'assets/images/album/04.webp', orientation: 'portrait',  caption: null },
+      { src: 'assets/images/album/04.webp', orientation: 'landscape', caption: null },
       { src: 'assets/images/album/05.webp', orientation: 'portrait',  caption: null },
-      { src: 'assets/images/album/06.webp', orientation: 'portrait',  caption: null },
-      { src: 'assets/images/album/07.webp', orientation: 'landscape', caption: null },
-      { src: 'assets/images/album/08.webp', orientation: 'portrait',  caption: null },
-      { src: 'assets/images/album/09.webp', orientation: 'portrait',  caption: null }
+      { src: 'assets/images/album/06.webp', orientation: 'portrait',  caption: null }
     ],
     // Layout used for placeholders while the album is empty (8 tiles).
     placeholderLayout: ['portrait', 'portrait', 'landscape', 'portrait', 'portrait', 'landscape', 'portrait', 'portrait']
