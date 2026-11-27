@@ -93,8 +93,10 @@ window.WEDDING = {
   },
 
   music: {
-    src: 'assets/music/background.mp3', // TODO drop an mp3 here; the toggle hides itself if missing
-    volume: 0.5,
+    // Beautiful in White (Westlife). The file is already mixed down to 45% with a 3 s fade-in,
+    // because iPhones ignore `volume` and always play at the phone's own level.
+    src: 'assets/music/background.m4a',
+    volume: 0.8,
     autoplayOnOpen: true                // starts when the guest taps "Mở thiệp"
   },
 

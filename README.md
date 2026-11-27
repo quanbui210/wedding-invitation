@@ -90,7 +90,7 @@ The cover is two CSS fabric drapes. On "Mở thiệp" they gather to a tie-back 
 
 ## 3c. Music
 
-Put an MP3 at `assets/music/background.mp3` (or change `music.src`). Keep it under about 3 MB: 128 kbps, trimmed to 2 to 3 minutes. It loops. It starts when the guest taps "Mở thiệp", because browsers block sound before a tap. If the file is missing, the music button hides itself. Set `music.autoplayOnOpen: false` to start muted with the button shown. Use music you have the right to play.
+The song is `assets/music/background.m4a` (AAC, 96 kbps, about 2.8 MB). Change `music.src` to use another file; keep it under about 3 MB. iPhones ignore the page's volume setting, so lower the loudness in the file itself. It loops. It starts when the guest taps "Mở thiệp", because browsers block sound before a tap. If the file is missing, the music button hides itself. Set `music.autoplayOnOpen: false` to start muted with the button shown. Use music you have the right to play.
 
 ## 4. RSVP → Google Sheets
 
