@@ -93,8 +93,8 @@ window.WEDDING = {
   },
 
   music: {
-    // Beautiful in White (Westlife). The file is already mixed down to 45% with a 3 s fade-in,
-    // because iPhones ignore `volume` and always play at the phone's own level.
+    // Beautiful in White (Westlife): mixed down to 45%, the song's 1.6 s of opening silence cut, 1.5 s fade-in.
+    // The loudness is lowered in the file because iPhones ignore `volume` and play at the phone's own level.
     src: 'assets/music/background.m4a',
     volume: 0.8,
     autoplayOnOpen: true                // starts when the guest taps "Mở thiệp"
